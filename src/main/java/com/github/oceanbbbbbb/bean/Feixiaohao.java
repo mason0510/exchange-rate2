@@ -1,6 +1,7 @@
 package com.github.oceanbbbbbb.bean;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
@@ -11,5 +12,7 @@ import lombok.ToString;
 public class Feixiaohao {
 
   private long ctime;
-  private JSONArray jsonArray;
+//  private JSONArray jsonArray;
+  private JSONObject jsonObject;
+
 }

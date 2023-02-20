@@ -14,7 +14,8 @@ import java.util.TreeMap;
  */
 public class ConvertFXH {
 
-  static String feixiaohao = "https://dncapi.bqiapp.com/api/coin/web-coinrank?page=1&type=-1&pagesize=100&webp=1";
+//  static String feixiaohao = "https://dncapi.bqiapp.com/api/v3/coin/web-coinrank?page=1&type=-1&pagesize=100&webp=1";
+  static String feixiaohao = "https://api.coincap.io/v2/rates/binance-coin";
   private static DataCache dataCache = DataCache.getDataCache();
 
   /**
@@ -52,13 +53,15 @@ public class ConvertFXH {
     BigDecimal result = null;
     try {
       if(dataCache.isEffeFXH()){
-        result = dealData(dataCache.getFeixiaohao().getJsonArray(),symbol,currency);
+        result = dealObjectData(dataCache.getFeixiaohao().getJsonObject(),symbol,currency);
       }else{
         String content = OkHttpClientUtil.doGet(url, null, headers, null);
         JSONObject jsonObject = JSONObject.parseObject(content);
-        JSONArray array = (JSONArray) jsonObject.get("data"); // 这个数据放内存，有5秒寿命
-        dataCache.setFeixiaohao(Feixiaohao.builder().ctime(System.currentTimeMillis()).jsonArray(array).build());
-        result = dealData(array,symbol,currency);
+       // JSONArray array = (JSONArray) jsonObject.get("data"); // 这个数据放内存，有5秒寿命
+        JSONObject jsonObject1 = (JSONObject) jsonObject.get("data"); // 这个数据放内存，有5秒寿命
+        dataCache.setFeixiaohao(Feixiaohao.builder().ctime(System.currentTimeMillis()).jsonObject(jsonObject1).build());
+        result = dealObjectData(jsonObject1,symbol,currency);
+         dataCache.setFeixiaohao(Feixiaohao.builder().ctime(System.currentTimeMillis()).build());
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -89,5 +92,20 @@ public class ConvertFXH {
       }
     }
     return null;
+  }
+
+
+
+
+  private static BigDecimal dealObjectData(JSONObject jsonObject, String symbol, CurrencyFXH currency) {
+      JSONObject o = jsonObject;
+      String name = (String) o.get("symbol");
+    if (name.equalsIgnoreCase(symbol)) {
+      String rateUsd1 = (String) o.get("rateUsd");
+      if (currency == CurrencyFXH.USD) {
+        return new BigDecimal(rateUsd1);
+      }
+    }
+      return null;
   }
 }

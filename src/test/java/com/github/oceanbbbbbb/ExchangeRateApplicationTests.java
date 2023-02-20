@@ -11,6 +11,7 @@ public class ExchangeRateApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }

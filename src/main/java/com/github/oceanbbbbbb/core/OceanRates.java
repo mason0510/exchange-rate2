@@ -54,11 +54,8 @@ public class OceanRates {
 
   //demo
   public static void main(String[] args) {
-    for (int i = 0; i < 100; i++) {
-//      System.out.println(getCoinPrice("BTC",Currency.EUR));// 获取综合指数价(汇率)
-//      System.out.println(ReptileCMC.getPriceByCMC("BTC",Currency.CNY));// 获取coinmarketcap的价(汇率)
-      System.out.println(ConvertFXH.getPriceByFXH("BTC",CurrencyFXH.USD));// 获取feixiaohao的价(汇率)
-    }
+    BigDecimal btc = ConvertFXH.getPriceByFXH("BNB", CurrencyFXH.USD);
+    System.out.println(btc);
   }
 
 

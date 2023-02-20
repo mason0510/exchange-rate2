@@ -38,3 +38,8 @@ https://www.361shipin.com/shipin/others/rate/get?coin=BTC&currency=USD
 2.已解决.偶尔会有    ```javax.net.ssl.SSLHandshakeException```
 于是在创建client的时候，忽略了ssl认证,```SslUtil.ignoreSsl```
 
+
+## api doc
+https://docs.coincap.io/#0a8102a5-c338-4661-aa99-f1c57661b5b1
+
+## 获取指定币种的价格
